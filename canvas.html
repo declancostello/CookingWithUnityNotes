@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="../../docs-assets/ico/favicon.png">
+
+    <link rel="stylesheet" href="bootstrap/styles/default.css">
+    <script src="bootstrap/highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+
+    <title>Off Canvas Template for Bootstrap</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="bootstrap/offcanvas.css" rel="stylesheet">
+
+    <!-- Just for debugging purposes. Don't actually copy this line! -->
+    <!--[if lt IE 9]><script src="../../docs-assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+  </head>
+
+  <body>
+    <div class="navbar navbar-fixed-top navbar-inverse" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">Cooking With Unity Walkthroughs</a>
+        </div>
+        <div class="collapse navbar-collapse">
+          <ul class="nav navbar-nav">
+            <li class="active"><a href="#">Dual Stick Shooter</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
+        </div><!-- /.nav-collapse -->
+      </div><!-- /.container -->
+    </div><!-- /.navbar -->
+
+    <div class="container">
+
+      <div class="row row-offcanvas row-offcanvas-right">
+
+        <div class="col-xs-12 col-sm-9">
+          <p class="pull-right visible-xs">
+            <button type="button" class="btn btn-primary btn-xs" data-toggle="offcanvas">Toggle nav</button>
+          </p>
+          <div class="jumbotron">
+            <h1>Dual Stick Shooter</h1>
+            <p>Inspired by Smash TV, here's a cooking with Unity lesson on building your own Dual Stick Shooter.</p>
+          </div>
+          <div class="row"><!-- 1 startin the grid-->
+            <div class="col-md-12">
+              <p><a class="btn btn-default" href="http://cookingwithunity.com" role="button">Watch the Video lesson <span class="glyphicon glyphicon-facetime-video"></span></a></p>
+              <p>
+              A dual stick shooter
+As soon as people realised there were 2 analogue sticks on controllers
+wait we can so the robotron thing and dual stick shooters
+No theming on the show so just a whole bunch of cubes killing each other
+I'm going to draw inspiration from SmashTV
+It's going to have a static screen with regards to gameplay
+but there will be a progression to new screens and obstacles
+Let's get some guys moving around first
+</p>
+<h2>Create a movable Player</h2>
+<p>Let's make our player a sphere and have all our enemies be angular.</p>
+<p>Create a sphere <code>GameObject <span class="glyphicon glyphicon-arrow-right"></span> Create other <span class="glyphicon glyphicon-arrow-right"></span>
+Sphere
+</code> and set its position in the <code>inspector</code> to <code class="input">0,0,0</code>.</p>
+<p>Change the name of the sphere to "Player"</p>
+<p>Create a cube. <code>GameObject <span class="glyphicon glyphicon-arrow-right"></span> Create other <span class="glyphicon glyphicon-arrow-right"></span>
+Cube</code> Rename it to <code class="input">Bullet</code></p>
+sphere's are a little bit expensive with the way they're set up in Unity
+it's using 722 triangles
+compared to 12 for a cube
+I use a lot of cubes because the sphere's are expensive
+we're going to call the cube a bullet and the sphere a player
+and prefab both of those
+<p>drag the bullet and the player from the hierarchy to the project pane, Unity will turn them into prefabs.</p>
+<p>Delete the bullet from the hierarchy, but leave the player as we want that to be there when we start the level.</p>
+<p>In the project tab <code>Create</code> a new <code>C# script</code> and name it <code class="input">DualStickShooter.cs</code></p>
+<p>Let's change our input settings. <code>Edit <span class="glyphicon glyphicon-arrow-right"></span> Project Settings <span class="glyphicon glyphicon-arrow-right"></span> Input</code></p>
+<p>In the <code>Inspector</code> you'll see we've got a horizontal axis, a vertical axis and also a Fire1 and Fire2</p>
+<p>For the <code>Horizontal</code>, set <code>Negative Button</code> to <code class="input">a</code></p>
+<p>set <code>Positive Button</code> to <code class="input">d</code></p>
+<p>For the <code>Vertical</code>, set <code>Negative Button</code> to <code class="input">s</code> and set <code>Positive Button</code> to <code class="input">w</code>
+<p>Clear the Alt buttons for both. That should give us wasd for controlling the movement of the Player</p>
+<p>Give the Player a gun</p>
+<p>let's rename Fire1 to <code class="input">FireHorizontal</code></p>
+<p>Set <code>Negative Button</code> to <code class="input">right</code>, <code>Positive Button</code> to <code class="input">left</code>, <code>Gravity</code> to <code class="input">3</code>, <code>Sensitivity</code> to <code class="input">3</code> and <code>Snap</code> to checked. ( same settings as Horizontal )</p>
+<p>Rename Fire2 to <code class="input">FireVertical</code></p>
+<p>Set <code>Negative Button</code> to <code class="input">down</code>, <code>Positive Button</code> to <code class="input">up</code>, <code>Gravity</code> to <p>3</p>, <code>Sensitivity</code> to <code class="input">3</code> and <code>Snap</code> to checked. ( same settings as Vertical )</p>
+<p>Clear the Alt buttons for these as well, so that only the up, down, left and right keys will control the direction the Player fires.</p>
+<p>let's save our scene as <code class="input">testlevel</code></p>
+<p>Now we can edit our script</p>
+<p>Attach the DualStickShooter.cs stript to the Player.</p>
+
+<p>Let's add some variables to the DualStickShooter class</p>
+<p><pre><code>public float moveSpeed = 1.0f;
+public float shootDelay = 0.2f;</code></pre></p>
+
+<p>In the update function we'll have code to move the Player around based on movespeed</p>
+<p><pre><code>Vector3 moveDirection = new Vector3(Input.GetAxis("Horizontal"),Input.GetAxis("Vertical"), 0);
+transform.position += moveDirection*moveSpeed*Time.deltaTime;</code></pre></p>
+
+
+input.getaxis horiz
+this returns a number between -1 and +1
+-1 is max left
+add together our 2 axes adn use use to control our movement
+that will implicitly give us a speed too
+vector3 movedirection = inputs hor + vert
+transform.position += moveDirection movespeed time.deltatime
+movespeed = 1
+shootdelay = 0.2
+lets see if it works
+this should move in x and y
+new vector3 x,y,z to handle floats from input
+
+<p>Attach a directional light to the Player. <code>Gameobject <span class="glyphicon glyphicon-arrow-right"></span> Create Other <span class="glyphicon glyphicon-arrow-right"></span> Directional Light</code></p>
+<p>Select the Main Camera and change the y position to 0 in the transform.</p>
+set movespeed to 100?
+arrow keys dont move it, we set it for wasd
+it drifts a bit although we set it to snap
+<p>Lets make it shoot.</p>
+<pre><code>public GameObject bullet;
+public float bulletSpeed = 1.0f;</code>
+</pre>
+
+In update we will handle firing the bullets. 
+If the User presses any of the arrow keys, we will calculate a direction and fire a bullet in that direction
+<p><pre><code>if((Input.GetAxis("FireHorizontal") != 0.0f || Input.GetAxis("FireVertical") != 0.0f) && canShoot)
+    {
+      Vector3 shootDirection = new Vector3(Input.GetAxis("FireHorizontal"),Input.GetAxis("FireVertical"), 0).normalized;
+      GameObject bulletInstance = Instantiate(bullet,transform.position,Quaternion.LookRotation(shootDirection)) as GameObject;
+      bulletInstance.rigidbody.AddForce(shootDirection*bulletSpeed,ForceMode.VelocityChange);
+      canShoot = false;
+      Invoke("ShootDelay", shootDelay);
+    }</code></pre></p>
+<p>We don't want to fire every single frame so we after we fire we set canShoot = false. we then call Invoke on the function ShootDelay which will get executed after the amount of time specified in the variable shootDelay.
+<pre><code>void ShootDelay()
+{
+  canShoot = true;
+}</code></pre> The function just changes canShoot back to true so that we can fire again. </p>
+
+<!--
+vector3 shootdirection takes values from fireHor and firevert
+instantiate bullet transform.pos, bullet.transform.rotation
+.normalized
+we dont want the scalar value, we just want the direction
+bulletspeed is handled by a variable
+gameobject bulletinstance = results of  instastiate
+bulletinstance.rigidbody.addforce shootdirection * bulletspeed, velocitychange
+set bulletspeed to 1.0f
+save the script and reset in inspector
+we need shootdelay
+if input.getaxis fireHor != 0.0 || input.getaxis fireVert != 0.0
+&& canshoot ( public bool )
+set canshoot = false after shooting
+invoke shootdelay
+void shootdelay set canshoot = true
+drag bullet into bullet slot in inspector
+painting cubes?
+-->
+<p>Bullet and Player Physics</p>
+<p>In the Inspector, select the bullet prefab and add a RigidBody <code>Component <span class="glyphicon glyphicon-arrow-right"></span> Physics <span class="glyphicon glyphicon-arrow-right"></span> RigidBody</code></p>
+<p>Since they are now rigidbodies and will have physics applied, we should change some of our Physics settings</p>
+<p>Select Bullet in the project pane and in the inspector click on <code>Layer <span class="glyphicon glyphicon-arrow-right"></span> Add Layer...</code></p>
+<p>Expanding the layers section shows us some built in layers that are greyed out - we can't edit these. Click on the first empty User Layer and type in playerBullet</p>
+<p>Add another layer for the Player, typing player into the next available user layer</p>
+<p>With the layers created we need to make sure they don't interact. Open the physics settings <code>Edit <span class="glyphicon glyphicon-arrow-right"></span> Project Settings <span class="glyphicon glyphicon-arrow-right"></span> Physics</code> and find the row for playerBullets.</p>
+<p>Uncheck the corresponding columns for playerBullets and player. With these unchecked any objects on the payerBullets layer won't intereact with each other or the player.</p>
+<p>Select the Bullet prefab and choose playerBullet from the layer dropdown. Similarly, put the player prefab on the player layer. </p>
+put the canshoot test in parantheses
+<p>make the bullets tiny</p>
+<p>Turn off gravity on the bullet cubes</p>
+<p>Select the Player and drag the bullet prefab from the Project tab into the bullet slot in the inspector.</p>
+<!-- addlayer
+new layer playerBullet
+project settings
+physics - make bullets not collide with each other
+playerBullets never collide with player
+playerBUlletsuld not collide with each other sho
+set bullets to be on playerbullets layer
+set player to be oplayer layer
+-->
+<p>Adjust the values for bulletSpeed and moveSpeed in the inspector until you find ones that work best. Remember that changing values while the game is playing will not persist after you stop the game. If you right click on a script component in the inspector and select <code>Reset component</code> it will reset the component to the values that you have set in the C# script, over writing any changes you have made since in the inspector.</p>
+<p>set bulletspeed to 10, movespeed to 3</p>
+<p>change shootdelay to .1</p>
+make canshoot private - public was goodm for debugging see in inspector
+shoting and moving
+<p>Create Enemies</p>
+<p>create an evil red cube <code>GameObject <span class="glyphicon glyphicon-arrow-right"></span> Create Other <span class="glyphicon glyphicon-arrow-right"></span> Cube</code> and name it fodderEnemy.</p>
+In the project tab, click on <code>Create <span class="glyphicon glyphicon-arrow-right"></span>Material</code>, rename it to red, set its color to red and then
+attach to fodderEnemy by dragging the material onto the fodderEnemy object.</p>
+<p>make it a prefab, zero position</p>
+<p>select bullet, make it a long rect by changing the scale values to <code class="input">0.2, 0.2, 0.75</code> in the transform section of the inspector.</p>
+
+<p>In the dualStickShooter.cs script change the rotation for the bullet from transform.rotation to quaternion.lookRotation(shootDirection)</p>
+script, remove tran.roatation
+cahnge to quat.lookrotation ( shootdirection)
+.75 unit size bullet
+<p>lookrotation assumes that the vector you want it to be looking at is in the z direction of that object</p>
+<p>it will point the z dirction of that object in whatever direction you give it</p>
+<p>you always want your objects to be z forward, in this case we want the bullets to be pointed in the same direction as we are shooting.</p>
+unity is z forward
+x and y as the screen in 2d and then z is added to represent the depth
+<p>create a followPlayer script. In the project tab, <code>Create <span class="glyphicon glyphicon-arrow-right"></span>C# script</code> and name it followPlayer</p>
+<p>Select the player prefab and tag it as Player</p>
+<p><pre><code>// What do comments look like?
+using UnityEngine;
+using System.Collections;
+
+public class FollowPlayer : MonoBehaviour {
+  
+  public float speed = 1.0f;
+  
+  void Update ()
+  {
+    Vector3 moveDirection = (GameObject.FindGameObjectWithTag("Player").transform.position - transform.position).normalized;
+    transform.position += moveDirection*speed*Time.deltaTime;
+  }
+}
+</code></pre></p>
+<!--public float speed
+update - vector3 movedirection =
+tag the player as player
+... = gameobect.findgameobjectwithTag
+.trans.pos - our trans.pos) . normalised
+transform.pos += moveDIection speed time.delta
+def speed - 1.0
+-->
+<p>attach this script to fodderEnemy</p>
+<p>Add 1 fodderEnemy to the scene so we can test to see if it works.</p>
+fodder will follow
+<blockquote>He's invincible, it's impossible to kill him, Oh no he's touched me!</blockquote>
+<p>From the Project tab <code>Create</code> another <code>C# Script</code> and name it DestroyOnInvisible</p>
+<p>Add this code</p>
+<p><pre><code>using UnityEngine;
+using System.Collections;
+
+public class DestroyOnInvisible : MonoBehaviour {
+
+  void OnBecameInvisible()
+  {
+    Destroy(gameObject);
+  }
+}
+</code></pre></p>
+<p><code>OnBecameInvisible</code> is a built-in Unity function which gets called when an object becomes invivible <abbr>i.e.</abbr> goes offscreen.</p>
+void onbecameinvisible
+destroy gameobject
+<p>Add this script to the bullet prefab so that once a bullet goes off screen, it gets destroyed</p>
+<blockquote>I love Unity - this is too fun</blockquote>
+dunno what snap means in input settings
+<p>lets make a spawner</p>
+<p>Delete sample enemy from scene, we're going to add them automatically with a new script.</p>
+<p>Add <code>GameObject <span class="glyphicon glyphicon-arrow-right"></span> Create Other <span class="glyphicon glyphicon-arrow-right"></span> empty gameobject</code> and name it EnemySpawner</p>
+enemyspawner
+<p>create script enemySpawner</p>
+<p><pre><code>using UnityEngine;
+using System.Collections;
+
+public class EnemySpawner : MonoBehaviour
+{
+  public GameObject enemyType;
+  public float spawnRadius = 10.0f;
+  public float spawnDelay = 1.0f;
+
+  // Use this for initialization
+  void Start ()
+  {
+    Invoke("SpawnEnemy",spawnDelay);
+  }
+  
+  void SpawnEnemy()
+  {
+    Vector3 spawnPosition = transform.position + ((Vector3)Random.insideUnitCircle).normalized*spawnRadius;
+    Instantiate(enemyType,spawnPosition,enemyType.transform.rotation);
+    Invoke("SpawnEnemy",spawnDelay);
+  }
+  
+  void OnDrawGizmosSelected()
+  {
+    Gizmos.DrawWireSphere(transform.position, spawnRadius);
+  }
+}
+</code></pre></p>
+<!--
+pub go enemytype
+pub fl spawnradius
+pub fl spawnrate
+start - invoke(spawnenemy, spawnDelay<-edit)
+void spawnenemy
+vector3 spawnposition = transform.position + random.insideunitcircle cast as vector3 .normalized
+normalized will place the spawn at 1 unit ie te outside of the circle
+multiply by spawn radiius
+instantiate ( enemytype, spwnposition, enemytype.transform.rotation)
+invoke at end of func so that we get a randomised spawn delay and position each time
+void ongui
+gizmos.drawwiresphere( trans.pos spawnradius)
+onguiselected
+already a built in player tag
+ondrawgizmossleected instead
+-->
+
+<p>Drag the fodderEnemy prefab into the  enemy type slot in enemySpawner's inspector</p>
+<p>movement and enemies working :)</p>
+<p>In the project tab <code>Create  C# Script</code> called gibOnCollide</p>
+<p>attach gibOnCollide script to fodderenemy</p>
+<p><pre><code>using UnityEngine;
+using System.Collections;
+
+public class GibOnCollide : MonoBehaviour {
+  
+  public GameObject gib;
+  public int amount = 10;
+  public float spawnRadius = 0.5f;
+  public float explosionRadius = 1.0f;
+  public float explosionForce = 500f;
+
+  
+  void OnCollisionEnter()
+  {
+    for(int i = 0; i < amount; i++)
+    {
+      Vector3 spawnPosition = transform.position + Random.onUnitSphere*spawnRadius;
+      GameObject gibInstance = Instantiate(gib,spawnPosition,gib.transform.rotation) as GameObject;
+      gibInstance.rigidbody.AddExplosionForce(explosionForce,transform.position,explosionRadius);
+    }
+    Destroy(gameObject);
+  }
+}
+</code></pre></p>
+<!--
+pub int amount
+void oncollisionenter
+for i = 0 i< amount i++ instantiate gib transform.pos gib.tran.rotation
+pub float spawnradius
+pub float explosionradius
+pub ecplsionforce
+gibinstance.rigidbody.addexplosionforce ( exp force, trans.pos, expradius)
+add values to class vars
+vectro3 spawPos = trans.pos + random
+-->
+<p>We need a gib model. Duplicate the bullet prefab using Ctrl-D. Make it red by dragging the red material onto it
+Change the scale values to 0.1 in all axes.
+</p>
+<p>Before we try out the gibs we need to put them onto a separate layer so that they don't collide with anything</p>
+<p>Select gib and <code>Layer <span class="glyphicon glyphicon-arrow-right"> Add Layer</code> called gibs</p>
+<p>Go to <code>Edit <span class="glyphicon glyphicon-arrow-right"> Project Settings <span class="glyphicon glyphicon-arrow-right"> Physics</code> and uncheck lines where gibs intersect with other layers and itself</p>
+<p>Drag the gib prefab onto the gibOnCollide slot in the fodderEnemy</p>
+<p>Press Play!</p>
+<!--
+for loop hogging the pc :(
+save early and often
+add destroy gameobject to gib on collide
+put gibs on new layer called gibs
+proj setting physics gibs shouldnt collid with anything
+-->
+            </div><!--/span-->
+            
+          </div><!--/row-->  
+
+          
+          <div class="row"><!-- 2 startin the grid-->
+            <div class="col-6 col-sm-6 col-lg-4">
+              <h2>Heading1</h2>
+              <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
+              <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
+              
+            </div><!--/span-->
+            <div class="col-6 col-sm-6 col-lg-4">
+              <h2>Heading2</h2>
+              <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
+              <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
+            </div><!--/span-->
+            <div class="col-6 col-sm-6 col-lg-4">
+              <h2>Heading3</h2>
+              <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
+              <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
+            </div><!--/span-->
+           
+          </div><!--/row-->
+
+
+
+        </div><!--/span-->
+
+        <div class="col-xs-6 col-sm-3 sidebar-offcanvas" id="sidebar" role="navigation">
+          <div class="list-group">
+            <a href="#" class="list-group-item active">Link</a>
+            <a href="#" class="list-group-item">Link</a>
+            <a href="#" class="list-group-item">Link</a>
+            <a href="#" class="list-group-item">Link</a>
+            <a href="#" class="list-group-item">Link</a>
+            <a href="#" class="list-group-item">Link</a>
+            <a href="#" class="list-group-item">Link</a>
+            <a href="#" class="list-group-item">Link</a>
+            <a href="#" class="list-group-item">Link</a>
+            <a href="#" class="list-group-item">Link</a>
+          </div>
+        </div><!--/span-->
+      </div><!--/row-->
+
+      <hr>
+
+      <footer>
+        <p>&copy; Company 2013</p>
+      </footer>
+
+    </div><!--/.container-->
+
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+    <script src="bootstrap/js/bootstrap.min.js"></script>
+    <script src="bootstrap/offcanvas.js"></script>
+  </body>
+</html>
